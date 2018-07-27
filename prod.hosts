@@ -2,7 +2,7 @@
 # Variables used by the ITIX playbook
 #
 [itix:vars]
-itix_dns_suffix=itix.fr
+itix_dns_suffix=88.198.65.4.nip.io
 itix_openshift_version=3.9
 itix_application_templates_repo_tag=ose-v1.4.7
 itix_openshift_origin_repo_tag=release-3.9
@@ -16,16 +16,16 @@ masters
 #
 [all:vars]
 # Default route suffix
-openshift_master_default_subdomain=app.itix.fr
+openshift_master_default_subdomain=app.88.198.65.4.nip.io
 
 [masters]
-openshift.itix.fr
+openshift.88.198.65.4.nip.io
 
 [etcd]
-openshift.itix.fr
+openshift.88.198.65.4.nip.io
 
 [nodes]
-openshift.itix.fr openshift_node_labels='{ "region": "infra", "node-role.kubernetes.io/compute": "true", "node-role.kubernetes.io/master": "true" }'
+openshift.88.198.65.4.nip.io openshift_node_labels='{ "region": "infra", "node-role.kubernetes.io/compute": "true", "node-role.kubernetes.io/master": "true" }'
 
 #
 # The rest is used only by the OpenShift installer playbook
@@ -41,12 +41,12 @@ etcd
 # see https://bugzilla.redhat.com/show_bug.cgi?id=1506578
 #
 openshift_install_examples=true
-openshift_examples_load_quickstarts=false
-openshift_examples_load_xpaas=false
+#openshift_examples_load_quickstarts=false
+#openshift_examples_load_xpaas=false
 
 # Yes, we need to use sudo
 ansible_become=yes
-
+ansible_connection=local
 # what to install
 deployment_type=openshift-enterprise
 

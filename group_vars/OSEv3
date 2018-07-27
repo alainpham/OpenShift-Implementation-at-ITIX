@@ -1,0 +1,11 @@
+---
+  # Google OAuth Client generated on :
+  # https://console.developers.google.com/apis/credentials?project=aprhdemo
+  openshift_master_identity_providers:
+    - name: RedHat
+      login: true
+      challenge: false
+      kind: GoogleIdentityProvider
+      clientID: YOURCLIENT_ID.apps.googleusercontent.com
+      clientSecret: YOURCLIENT_SECRET
+      hostedDomain: redhat.com

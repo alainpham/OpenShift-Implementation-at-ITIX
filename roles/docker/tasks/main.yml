@@ -1,10 +1,5 @@
 ---
 
-  - name: Make sure the extra repos is enabled
-    command: subscription-manager repos --enable rhel-7-server-extras-rpms
-    when: "ansible_os_family == 'RedHat' and not is_offline|default(False)|bool"
-    tags: rpm
-
   - name: Install a missing dependency of Docker
     yum: name=python-setuptools state=installed
     tags: rpm
