@@ -1,0 +1,74 @@
+#
+# Variables used by the ITIX playbook
+#
+[itix:vars]
+itix_dns_suffix=88.198.65.4.nip.io
+itix_openshift_version=3.9
+itix_application_templates_repo_tag=ose-v1.4.7
+itix_openshift_origin_repo_tag=release-3.9
+itix_openshift_docker_images_repo_tag=master
+
+[itix:children]
+masters
+
+#
+# Shared variables used by both openshift-ansible and the ITIX playbook
+#
+[all:vars]
+# Default route suffix
+openshift_master_default_subdomain=app.88.198.65.4.nip.io
+
+[masters]
+openshift.88.198.65.4.nip.io
+
+[etcd]
+openshift.88.198.65.4.nip.io
+
+[nodes]
+openshift.88.198.65.4.nip.io openshift_node_labels='{ "region": "infra", "node-role.kubernetes.io/compute": "true", "node-role.kubernetes.io/master": "true" }'
+
+#
+# The rest is used only by the OpenShift installer playbook
+#
+[OSEv3:children]
+masters
+nodes
+etcd
+
+[OSEv3:vars]
+#
+# Starting with 3.6, default templates and imagestreams can be left out
+# see https://bugzilla.redhat.com/show_bug.cgi?id=1506578
+#
+openshift_install_examples=true
+#openshift_examples_load_quickstarts=false
+#openshift_examples_load_xpaas=false
+
+# Yes, we need to use sudo
+ansible_become=yes
+ansible_connection=local
+# what to install
+deployment_type=openshift-enterprise
+
+# Clustering method
+openshift_master_cluster_method=native
+
+# Bypass Registry Security Checks
+openshift_docker_insecure_registries=172.30.0.0/16
+
+# Make sure NTP is enabled
+openshift_clock_enabled=true
+
+# Do not create the default project "my-project"
+openshift_additional_projects={}
+
+# Enable the "flat network" SDN
+os_sdn_network_plugin_name='redhat/openshift-ovs-subnet'
+
+#enable logging
+openshift_logging_install_logging=true
+openshift_logging_es_pvc_dynamic=true
+openshift_logging_es_allow_external=true
+
+
+
