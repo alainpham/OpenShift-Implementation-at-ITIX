@@ -7,7 +7,7 @@ More to see there... Well, maybe...
 
 TODO : 
 
-git clone .. 
+git clone git@github.com:alainpham/OpenShift-Implementation-at-ITIX.git
 git submodule init
 git submodule update
 
@@ -20,5 +20,17 @@ ansible-playbook openshift-ansible/playbooks/deploy_cluster.yml  -i prod.hosts
 ansible-playbook playbooks/post-install.yml  -i prod.hosts
 ansible-playbook openshift-ansible/playbooks/openshift-master/additional_config.yml  -i prod.hosts
 ansible-playbook playbooks/provision-global-templates-and-imagestreams.yml  -i prod.hosts
+
 ansible-playbook playbooks/deploy-prometheus.yml  -i prod.hosts
 
+oc adm policy add-cluster-role-to-user cluster-admin apham@redhat.com
+
+
+git clone https://github.com/openshift/origin.git
+cd origin/examples/prometheus
+
+oc create -f node-exporter.yaml -n kube-system
+oc adm policy add-scc-to-user -z prometheus-node-exporter -n kube-system hostaccess
+oc annotate ns kube-system openshift.io/node-selector= --overwrite
+
+oc new-app -f prometheus.yaml
