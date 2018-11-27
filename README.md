@@ -143,7 +143,7 @@ https://raw.githubusercontent.com/jboss-container-images/jboss-amq-7-broker-open
 
 ```
 oc new-project amq-streams
-oc apply -f install/cluster-operator -n amq-streams
-oc apply -f examples/kafka/kafka-persistent.yaml
+oc apply -f ./extra/amq-streams/install/cluster-operator -n amq-streams
+oc apply -f ./extra/amq-streams/examples/kafka/kafka-persistent.yaml
 ```
 
