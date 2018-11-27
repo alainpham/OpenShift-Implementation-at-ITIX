@@ -26,7 +26,7 @@ ansible-playbook playbooks/preparation.yml -i prod.hosts
 ansible-playbook openshift-ansible/playbooks/deploy_cluster.yml  -i prod.hosts
 ansible-playbook playbooks/post-install.yml  -i prod.hosts
 ansible-playbook openshift-ansible/playbooks/openshift-master/additional_config.yml  -i prod.hosts
- ansible-playbook playbooks/provision-global-templates-and-imagestreams.yml  -i prod.hosts
+ansible-playbook playbooks/provision-global-templates-and-imagestreams.yml  -i prod.hosts
 ```
 
 4. Install prometheus
