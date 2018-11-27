@@ -40,10 +40,15 @@ ansible-playbook openshift-ansible/playbooks/openshift-prometheus/config.yml -i 
 cd extra/grafana
 ./setup-grafana.sh -n prom -a -e
 
+```
+
+6. Install EFK
+
+```
 ansible-playbook openshift-ansible/playbooks/openshift-logging/config.yml -i prod.logging.hosts
 ```
 
-6. Add Cluster admin role to your user
+7. Add Cluster admin role to your user
 
 ```
 oc adm policy add-cluster-role-to-user cluster-admin YOURUSER@mail.com
