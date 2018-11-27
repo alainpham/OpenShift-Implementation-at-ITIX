@@ -141,4 +141,9 @@ https://raw.githubusercontent.com/jboss-container-images/jboss-amq-7-broker-open
 
 11. Install Kafka stuff
 
+```
+oc new-project amq-streams
+oc apply -f install/cluster-operator -n amq-streams
+oc apply -f examples/kafka/kafka-persistent.yaml
+```
 
