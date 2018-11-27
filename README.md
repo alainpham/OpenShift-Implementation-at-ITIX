@@ -8,6 +8,7 @@ More to see there... Well, maybe...
 TODO : 
 
 git clone git@github.com:alainpham/OpenShift-Implementation-at-ITIX.git
+cd OpenShift-Implementation-at-ITIX
 git submodule init
 git submodule update
 
@@ -21,7 +22,12 @@ ansible-playbook playbooks/post-install.yml  -i prod.hosts
 ansible-playbook openshift-ansible/playbooks/openshift-master/additional_config.yml  -i prod.hosts
 ansible-playbook playbooks/provision-global-templates-and-imagestreams.yml  -i prod.hosts
 
-ansible-playbook playbooks/deploy-prometheus.yml  -i prod.hosts
+ansible-playbook openshift-ansible/playbooks/openshift-prometheus/config.yml -i prod.logging.hosts
+
+cd extra/grafana
+./setup-grafana.sh -n prom -a -e
+
+ansible-playbook openshift-ansible/playbooks/openshift-logging/config.yml -i prod.logging.hosts
 
 oc adm policy add-cluster-role-to-user cluster-admin apham@redhat.com
 
