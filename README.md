@@ -29,7 +29,13 @@ ansible-playbook openshift-ansible/playbooks/openshift-master/additional_config.
 ansible-playbook playbooks/provision-global-templates-and-imagestreams.yml  -i prod.hosts
 ```
 
-4. Install prometheus
+4. Add Cluster admin role to your user
+
+```
+oc adm policy add-cluster-role-to-user cluster-admin YOURUSER@mail.com
+```
+
+5. Install prometheus
 
 ```
 ansible-playbook openshift-ansible/playbooks/openshift-prometheus/config.yml -i prod.logging.hosts
@@ -43,22 +49,16 @@ oc create configmap prometheus  --from-file extra/prometheus/config-map/ -o yaml
 oc delete pod prometheus-0
 ```
 
-5. Install Grafana
+6. Install Grafana
 ```
 cd extra/grafana
 ./setup-grafana.sh -n prom -a -e
 ```
 
-6. Install EFK
+7. Install EFK
 
 ```
 ansible-playbook openshift-ansible/playbooks/openshift-logging/config.yml -i prod.logging.hosts
-```
-
-7. Add Cluster admin role to your user
-
-```
-oc adm policy add-cluster-role-to-user cluster-admin YOURUSER@mail.com
 ```
 
 8. Add Fuse stuff
